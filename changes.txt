@@ -1,0 +1,211 @@
+v6.04
+--------------
+changes:
+	fixed an issue where certain large objects would not display under certain circumstances
+v6.03
+--------------
+changes:
+	modified the way the map is rendered. Now things offscreen should no longer be rendered and instead skipped in order to improve performance.
+		***note the performance will actually be slightly worse when everything is being drawn, but performance is considerably better in almost all other situations
+v6.02
+--------------
+changes:
+	changed the way .spr3s are loaded so now they load directly into memory as a stream, vs creating temporary files
+v6.01
+--------------
+changes:
+	when choosing 'custom geometry' from the menu, there is now a check mark to display if it is currently active or not
+v6.00
+--------------
+changes:
+	changed the way the map is built so that multiple 'rooms' can be built that can be shown/hidden this also removes several unnecessary loops
+	changed the way the grid is loaded so that it is compatible with the other pc as well. the code to use the brush version still exists, just not being accessed in this build
+known issues:
+	if the init.ini is not in the proper place, the program will pass an error message than crash, rather than error and close smoothly
+v5.16
+--------------
+changes:
+	added a 'custom geometry' option which allows the creation of custom shaped sprites
+v5.15c
+--------------
+changes:
+	fixed an issue where loading a map did not load the added custom colors
+Known Issues:
+	after loading a map, all layers are set to visible even when they were not visible while saving
+v5.15b
+--------------
+changes:
+	fixed a compare when saving a map that could result in a false positive
+Known Issues:
+	when loading a map, the custom colors are not added to the menu
+v5.15
+--------------
+changes:
+	added the ability to show/hide layers
+Known Issues:
+	when loading a map, the custom colors are not added to the menu
+v5.14
+--------------
+changes:
+	fixed an issue where the number of layers would be doubled under certain conditions
+v5.13
+--------------
+changes:
+	added m_Size and m_MenuItemArea.m_GridOnTop values to the map files when saving
+Known issues:
+	under certain circumstances, when loading a map, it will double the number of layers that should exist
+v5.12b
+--------------
+changes:
+	fixed logging text format
+v5.12
+--------------
+changes:
+	added turn counter
+v5.11
+--------------
+changes:
+	added logging to the loading of sprites, this came about when I was recently unable to locate a file that was causing a crash for some reason.
+	added additional checks when loading bitmaps. this should prevent any future crashes from occurring due to an image of improper size (cross fingers)
+v5.10
+--------------
+changes:
+	no longer display the asset list build counter, it was slowing down the program unnecessarily; loads faster now as a result
+v5.09
+--------------
+changes:
+	modified the time value on next turn button presses
+	added an 'insertkey' for inserting into the initiative order rather than just swapping (default middle mouse button)
+	fixed an issue where the overlays would not take into account the size of the associated object properly
+	added an 'on fire' overlay button (default VK_F6)
+	fixed an issue where the initiative order would load to default when openning a map that uses the newer loading rules
+	fixed a crash that would occur if an image failed to load
+	added a turn counter button to the AdditionalOptions menu for future use
+known issues:
+	movement controls do not apply properly to hexagon mode, since they are not 1:1 the movement is incorrect and will end up with sprites being in unwanted locations
+	if you zoom in close enough, the target area and the grid will be slightly out of alignment when in hexagon mode
+	wierd crash can occur when selecting new after loading a map; this was documented in 5.01 and still persists; is difficult to nail down what is causing it since it doesn't always happen
+	wierd freezing up after choosing new still remains; current solution is to just wait it out
+	currently there is one map that if double-clicked to load will crash the program, but if openned normally does not crash the program; all other tests have worked so not sure what the cause is
+future feature plan:
+	add a turn counter (possibly allow for multiple?)
+	add an exaggerated concentration overlay so maybe i'll remember that its a thing
+	add a paging button for submenus that are too long to fit in the target area (current work around is to simply make more submenus)
+	have the view mode buttons in AdditionalOptions change view modes (low priority)
+	display a highlight of what area a selected item will take up if set at the hover location
+	if a map is loaded using 'double-click' skip the initial load so that it doesn't have to load all the images twice
+v5.08
+--------------
+changes:
+	fixed an issue where the initiative list would not take into account the total size of the m_AdditionalOptions menu which could lead to that menu clipping over the initiative list
+	added a copy of the init.dat to the end of saved map files; any maps made in this version or newer, will now load the data stored inside the map then apply the init.ini on top of that, this should make keeping consitent map data a little easier; does cause loading maps to be slower though
+Known Issues:
+	movement controls do not apply properly to hexagon mode, since they are not 1:1 the movement is incorrect and will end up with sprites being in unwanted locations
+	if you zoom in close enough, the target area and the grid will be slightly out of alignment when in hexagon mode
+	wierd crash can occur when selecting new after loading a map; this was documented in 5.01 and still persists; is difficult to nail down what is causing it since it doesn't always happen
+	wierd freezing up after choosing new still remains; current solution is to just wait it out
+	currently there is one map that if double-clicked to load will crash the program, but if openned normally does not crash the program; all other tests have worked so not sure what the cause is
+v5.07
+--------------
+Changes:
+	fixed an issue where double-clicking a map to load the program instead of the usual way would cause a crash if the map was not in the same directory as the executable
+	added ability to increase/decrease grid size without changing the scaling, this way if a map were to be displayed and the grid did not match what is wanted, the size could be modified to fit it, or at least get closer to fit
+	added IncreaseSize and DecreaseSize to keywords for the keys.ini
+Known Issues:
+	movement controls do not apply properly to hexagon mode, since they are not 1:1 the movement is incorrect and will end up with sprites being in unwanted locations
+	if you zoom in close enough, the target area and the grid will be slightly out of alignment when in hexagon mode
+	still don't know anything about the wierd crash mentioned in 5.01 (cannot seem to recreate this, this will be the last time it is listed unless the error returns)
+	wierd freezing up after choosing new still remains; current solution is to just wait it out
+	currently there is one map that if double-clicked to load will crash the program, but if openned normally does not crash the program; all other tests have worked so not sure what the cause is
+v5.06
+--------------
+changes:
+	now creates a hidden folder named delme that stores any temporary files created while loading spr3s rather than filling the directory. the files and folder are all deleted once the program ends
+	fixed the issue where the tag size was wrong after loading a map w/o doing a resize
+	added toggle keep aspect ratio to the item menu
+	added ability to load directly into a map by either dragging it onto the program, adding the path to the end of command prompt, or double-clicking the map file if the file type is associated w/ the program
+Known Issues:
+	movement controls do not apply properly to hexagon mode, since they are not 1:1 the movement is incorrect and will end up with sprites being in unwanted locations
+	if you zoom in close enough, the target area and the grid will be slightly out of alignment when in hexagon mode
+	still don't know anything about the wierd crash mentioned in 5.01
+	wierd freezing up after choosing new still remains; current solution is to just wait it out
+	the program will not load the init.ini if the map file is double-clicked to open the program and the map file is not in the same folder as the executable
+v5.05
+--------------
+changes:
+	fixed an issue where moving sprites w/o locking to grid ignored scaling and the start point modifier
+	fixed an issue where some maps would attempt to load as if it were a map from before version 5.x causing the program to crash
+	fixed an issue where deletion of walls did not take the selected layer into account
+	tweaked the output size of tiles to remove the small amount of empty space that can appear between squares
+v5.04
+--------------
+changes:
+	changed the way grids are built, this should improve performance
+	fixed an issue where scaling and startpoint were not being applied in hexagon mode
+	added a rotation button so sprites can be rotated at 45 degree increments
+	RotationKey was added as an option for the keys.ini
+Known Issues:
+	movement controls do not apply properly to hexagon mode, since they are not 1:1 the movement is incorrect and will end up with sprites being in unwanted locations
+	if you zoom in close enough, the target area and the grid will be slightly out of alignment when in hexagon mode
+	+same as below
+v5.03
+--------------
+changes:
+	fixed an issue where when moving a sprite from one position to another, it would use the selected size rather than the size of the selected object
+	fixed an issue where when removing an entry from the initiative list, it may add an entry at the same time
+	added a key to return to position (0,0)
+Known Issues:
+	still don't know anything about the wierd crash mentioned in 5.01
+	wierd freezing up after choosing new still remains; current solution is to just wait it out
+	after loading a map w/ a different scaling than the previous map; tags are the wrong size until the scaling is changed at least once
+v5.02
+--------------
+changes:
+	modified the mouseover area calculation to center around the cursor instead of starting on the cursor
+	modified the mouseover area calculation to apply to items smaller than medium, rather than using a default medium
+	modified the mouseover area calculation to have lock to grid apply at the size of the item if it is smaller than medium, this way multiple smaller sprites can be used in the same square w/o unlocking
+Known Issue:
+	still don't know what caused that wierd crash mentioned in 5.01
+	occassionally after choosing new, the program will freeze up on the loading display; after the function is complete it goes back as normal however
+v5.01
+--------------
+changes:
+	fixed an issue where the preview point and the selected point aren't necessarily equal when building walls
+	fixed an issue where sprites not locked to grid would not take the distance from the start point into account properly
+	fixed an issue where tag/buff/debuff/unconscious would be applied to all layers instead of just the selected layer
+Known Issue:
+	Ran into an odd crash on hitting new after saving a map; not sure of cause
+v5.00
+--------------
+changes:
+	Rebuilt from the bottom up; changed out the linked lists w/ vectors/queues/deques to simplify things and allows for more options
+	Added a toggle to the initiative order to swap to a menu that displays the available sprites
+	changed various color settings
+	changed the way buffs/debuffs are dislayed to make them more visible
+	added buff/debuff to the initiative order
+	put keys.ini back for custom key bindings
+	removed several calculations from the render function
+	various performance upgrades
+	added hexagon map display; doesn't do much right now, but can be displayed and messed with a little
+	added dimetriqe view back; doesn't support much at the moment; may no continue working on it (hexagon is high priority)
+	changed the drop down menus; considerably less options now
+	changed the way zooming works to use a scaling value rather than changing the size of the squares directly; allows for many more zoom distances
+	changed tagging to use built in fonts rather than using the image that it used to be based on
+	changed the way colors and shapes in general are handled
+	added support for more sizes fine->colossal + original image size + x2/x3/x4 + half size
+	optimized the save file size a bit
+	changed the icon to distinguish it from the other versions
+	changed how cursor over sprites is detected to be a little more accurate
+	changed the line thickness of the ruler and increased the number of decimal places shown (may change this back at a later date)
+	added ability to make any number of layers (this way its not always running 5 loops, but it can run more than that if necessary as an example)
+	changed the timing mechanic for sprites, uses far less resources now; only checking the time once per loop
+	only calculate the points for the grid if something changes such as zooming
+	dealt with most of the warning messages (HMENU/UINT messages are still there; not sure how or even if i can get rid of those)
+Known Issues:
+	Older maps will no longer load on this version properly
+	If there are enough sprite entries to exceed the visible menu area, the sprites outside the menu area will be unavailable
+	smaller sprites are not centered
+	overrides are no longer implemented, will likely be put back at a later date (maybe a polymorph button?)
+	******When placing walls using lock to grid, the preview point does not necessarily show where the point will be set to for some reason
+	******not locking to grid some objects results in them being out of place; pretty sure its not applying the startpoint coordiantes as a modifier
+	tag/buff/debuff/unconscious is applied to all layers instead of just the selected layer
