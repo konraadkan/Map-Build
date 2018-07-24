@@ -1001,7 +1001,7 @@ void Level1::Update(WPARAM wParam, D2D1_POINT_2F p)
 	if (wParam == MENU_EDITBUTTONMAPPING)
 	{
 		//allows for tweaking the button configuration
-		ButtonMapper m_ButtonMapper(m_Keyboard, gfx);
+		ButtonMapper m_ButtonMapper(m_Keyboard, gfx, D2D1::SizeF(DEFAULT_WINDOW_WIDTH, DEFAULT_WINDOW_HEIGHT));
 		Sleep(100);
 	}
 }
@@ -2856,8 +2856,6 @@ void Level1::ReactInputs(float timeTotal, float timeDelta, D2D1_POINT_2F p)
 					{
 						if (m_UseOld)
 						{
-							int mapSize = (int)m_MapData.size();
-
 							MapData m;
 							m.m_SizeCategory = m_NextSize;
 							m.m_KeepRatio = m_NextKeepAspect;
@@ -4131,7 +4129,6 @@ FRHOMBUS Level1::CalculateMouseOverArea(float xSize, int numberTilesX, int numbe
 bool Level1::InHex(HEX hex, D2D1_POINT_2F p)
 {
 	float sinTheta = 0.5f;
-	float scaledSize = m_Size * m_Scale;
 	D2D1_RECT_F centerBox = { hex.p5.x, hex.p5.y, hex.p2.x, hex.p2.y };
 	if (InRect(centerBox, p)) return true;
 	if (p.y < hex.p0.y) return false;
@@ -4947,7 +4944,6 @@ bool Level1::SpriteExists(std::string path)
 
 void Level1::BuildSpriteList(std::vector<Asset> assetList)
 {
-	int maxSize = (int)assetList.size();
 	while (!assetList.empty())
 	{
 /******* This section was originally put in for if the list was so long that the program would pause w/o showing anything, removed to improve speed
