@@ -209,6 +209,19 @@ void Graphics::DrawTextSmall(const wchar_t* text, FRECT targetArea, COLORREF_F c
 	m_WriteFormat->SetParagraphAlignment(p);
 }
 
+void Graphics::DrawTextSmall(const std::string text, D2D1_RECT_F targetArea, D2D1_COLOR_F color, DWRITE_TEXT_ALIGNMENT alignment, DWRITE_PARAGRAPH_ALIGNMENT p_alignment)
+{
+	std::wstring wtext(text.length(), L' ');
+	std::copy(text.begin(), text.end(), wtext.begin());
+	DWRITE_PARAGRAPH_ALIGNMENT p = m_WriteFormat->GetParagraphAlignment();
+	m_WriteFormatSmall->SetParagraphAlignment(p_alignment);
+	m_WriteFormatSmall->SetTextAlignment(alignment);
+	m_Brush->SetColor(color);
+	m_RenderTarget->DrawText(wtext.c_str(), wtext.size(), m_WriteFormatSmall, targetArea, m_Brush);
+	m_WriteFormatSmall->SetTextAlignment(DWRITE_TEXT_ALIGNMENT_LEADING);
+	m_WriteFormat->SetParagraphAlignment(p);
+}
+
 void Graphics::DrawVariableText(const wchar_t* text, FRECT targetArea, COLORREF_F color)
 {
 	m_Brush->SetColor(color);
