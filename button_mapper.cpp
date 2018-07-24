@@ -9,13 +9,18 @@ bool inRect(D2D1_RECT_F rect, D2D1_POINT_2F p)
 	return true;
 }
 
-ButtonMapper::ButtonMapper(KeyboardKeys& m_Keyboard, Graphics* graphics)
+ButtonMapper::ButtonMapper(KeyboardKeys& m_Keyboard, Graphics* graphics, D2D1_SIZE_F WindowSize)
 {
 	std::vector<KeyClass> keychanges;
 	std::vector<long> keyids;
 	MSG msg;
 	bool loop = true;
 	gfx = graphics;
+	m_WindowSize = WindowSize;
+	rowsize = (long)(m_WindowSize.width / 480);
+	buttonsize = D2D1::SizeF(480.0f, 64.0f);
+	commitRect = D2D1::RectF(m_WindowSize.width / 2.0f, m_WindowSize.height - 64.0f, m_WindowSize.width / 2.0f + buttonsize.width, m_WindowSize.height);
+	cancelRect = D2D1::RectF(commitRect.right, commitRect.top, commitRect.right + buttonsize.width, commitRect.bottom);
 	while (loop)
 	{
 		if (PeekMessage(&msg, 0, 0, 0, PM_REMOVE))
@@ -25,9 +30,9 @@ ButtonMapper::ButtonMapper(KeyboardKeys& m_Keyboard, Graphics* graphics)
 		}
 		if (GetButtonPressed() == VK_ESCAPE)
 			loop = false;
-		long value = (long)(GameController::p.x / 500);
-		value += (long)(GameController::p.y / 64) * 3;
-		if (GameController::p.x > 1500)
+		long value = (long)(GameController::p.x / buttonsize.width);
+		value += (long)(GameController::p.y / buttonsize.height) * rowsize;
+		if (GameController::p.x > (buttonsize.width * rowsize + 1))
 			value = -1;
 		Render(m_Keyboard, GameController::p, value);
 		if (value < m_Keyboard.m_NumberKeys && value >= 0)
@@ -41,7 +46,7 @@ ButtonMapper::ButtonMapper(KeyboardKeys& m_Keyboard, Graphics* graphics)
 					buttonPressed = GetButtonPressed();
 					gfx->BeginDraw();
 					gfx->ClearScreen({ 1.0,1.0,1.0,1.0 });
-					gfx->DrawText("Press the new key", { 0,0,1920,1080 }, { 0,0,0,1 }, DWRITE_TEXT_ALIGNMENT::DWRITE_TEXT_ALIGNMENT_CENTER, DWRITE_PARAGRAPH_ALIGNMENT::DWRITE_PARAGRAPH_ALIGNMENT_CENTER);
+					gfx->DrawText("Press the new key", { 0,0,WindowSize.width,WindowSize.height }, { 0,0,0,1 }, DWRITE_TEXT_ALIGNMENT::DWRITE_TEXT_ALIGNMENT_CENTER, DWRITE_PARAGRAPH_ALIGNMENT::DWRITE_PARAGRAPH_ALIGNMENT_CENTER);
 					gfx->EndDraw();
 				}
 				KeyClass* k = m_Keyboard.GetKeyClass(value);
@@ -56,7 +61,7 @@ ButtonMapper::ButtonMapper(KeyboardKeys& m_Keyboard, Graphics* graphics)
 				Sleep(250);
 			}
 		}
-		else if (inRect({ 1000,1010,1200,1080 }, GameController::p))
+		else if (inRect(commitRect, GameController::p))
 		{
 			//if commit clicked
 			if (GetAsyncKeyState(VK_LBUTTON) < 0)
@@ -99,7 +104,7 @@ ButtonMapper::ButtonMapper(KeyboardKeys& m_Keyboard, Graphics* graphics)
 				loop = false;
 			}
 		}
-		else if (inRect({ 1200,1010,1400,1080 }, GameController::p))
+		else if (inRect(cancelRect, GameController::p))
 		{
 			//if cancel clicked
 			if (GetAsyncKeyState(VK_LBUTTON) < 0)
@@ -135,9 +140,10 @@ void ButtonMapper::Render(KeyboardKeys m_Keyboard, D2D1_POINT_2F p, long value)
 	KeyClass* k = NULL;
 	float x = 100.0f;
 	float y = 0.0f;
+	
 	for (long i = 0; i < m_Keyboard.m_NumberKeys; i++)
 	{
-		if (!(i % 3) && i != 0)
+		if (!(i % rowsize) && i != 0)
 		{
 			x = 100.0f;
 			y += 64.0f;
@@ -145,33 +151,33 @@ void ButtonMapper::Render(KeyboardKeys m_Keyboard, D2D1_POINT_2F p, long value)
 		k = m_Keyboard.GetKeyClass(i);			
 		if (k)
 		{
-			gfx->DrawText(k->Name, { x, y, x + 500.0f, y + 64.0f }, { 0.0f,0.0f,0.0f,1.0f }, DWRITE_TEXT_ALIGNMENT::DWRITE_TEXT_ALIGNMENT_LEADING, DWRITE_PARAGRAPH_ALIGNMENT::DWRITE_PARAGRAPH_ALIGNMENT_NEAR);
-			gfx->DrawTextSmall(k->GetBoundValue(), { x, y + 32.0f, x + 500.0f, y + 64.0f }, { 0.0f, 0.0f,0.0f,1.0f }, DWRITE_TEXT_ALIGNMENT::DWRITE_TEXT_ALIGNMENT_LEADING, DWRITE_PARAGRAPH_ALIGNMENT::DWRITE_PARAGRAPH_ALIGNMENT_NEAR);
+			gfx->DrawText(k->Name, { x, y, x + buttonsize.width, y + buttonsize.height }, { 0.0f,0.0f,0.0f,1.0f }, DWRITE_TEXT_ALIGNMENT::DWRITE_TEXT_ALIGNMENT_LEADING, DWRITE_PARAGRAPH_ALIGNMENT::DWRITE_PARAGRAPH_ALIGNMENT_NEAR);
+			gfx->DrawTextSmall(k->GetBoundValue(), { x, y + buttonsize.height / 2.0f, x + buttonsize.width, y + buttonsize.height }, { 0.0f, 0.0f,0.0f,1.0f }, DWRITE_TEXT_ALIGNMENT::DWRITE_TEXT_ALIGNMENT_LEADING, DWRITE_PARAGRAPH_ALIGNMENT::DWRITE_PARAGRAPH_ALIGNMENT_NEAR);
 		}
-		x += 500.0f;
+		x += buttonsize.width;
 	}
 
-	gfx->DrawText(L"Commit", { 1000,1010,1200,1080 }, { 0,0,0,1 });
-	gfx->DrawText(L"Cancel", { 1200,1010,1400,1080 }, { 0,0,0,1 });
+	gfx->DrawText(L"Commit", commitRect, { 0,0,0,1 });
+	gfx->DrawText(L"Cancel", cancelRect, { 0,0,0,1 });
 	
-	if (p.x < 1500 && value < m_Keyboard.m_NumberKeys && value >= 0)
+	if (p.x < (buttonsize.width * rowsize + 1) && value < m_Keyboard.m_NumberKeys && value >= 0)
 	{
-		p.x = (long)p.x / 500;
-		p.y = (long)p.y / 64;
-		p.x *= 500;
-		p.y *= 64;
-		gfx->DrawRect({ p.x, p.y, p.x + 500, p.y + 64 }, { 1.0f, 0.0f,0.0f,1.0f }, 5.0f);
-		gfx->FillRect({ p.x, p.y, p.x + 500.0f, p.y + 64.0f }, { 1.0f,  0.41f, 0.71f, 0.8f });
+		p.x = (long)(p.x / buttonsize.width);
+		p.y = (long)(p.y / buttonsize.height);
+		p.x *= buttonsize.width;
+		p.y *= buttonsize.height;
+		gfx->DrawRect({ p.x, p.y, p.x + buttonsize.width, p.y + buttonsize.height }, { 1.0f, 0.0f,0.0f,1.0f }, 5.0f);
+		gfx->FillRect({ p.x, p.y, p.x + buttonsize.width, p.y + buttonsize.height }, { 1.0f,  0.41f, 0.71f, 0.8f });
 	}
-	else if (inRect({ 1000,1010,1200,1080 }, p))
+	else if (inRect(commitRect, p))
 	{
-		gfx->DrawRect({ 1000.0f,1010.0f,1200.0f,1080.0f }, { 1.0f,0.0f,0.0f,1.0f }, 5.0f);
-		gfx->FillRect({ 1000.0f,1010.0f,1200.0f,1080.0f }, { 1.0f,0.41f,0.71f,0.8f });
+		gfx->DrawRect(commitRect, { 1.0f,0.0f,0.0f,1.0f }, 5.0f);
+		gfx->FillRect(commitRect, { 1.0f,0.41f,0.71f,0.8f });
 	}
-	else if (inRect({ 1200,1010,1400,1080 }, p))
+	else if (inRect(cancelRect, p))
 	{
-		gfx->DrawRect({ 1200.0f,1010.0f,1400.0f,1080.0f }, { 1.0f,0.0f,0.0f,1.0f }, 5.0f);
-		gfx->FillRect({ 1200.0f,1010.0f,1400.0f,1080.0f }, { 1.0f,0.41f,0.71f,0.8f });
+		gfx->DrawRect(cancelRect, { 1.0f,0.0f,0.0f,1.0f }, 5.0f);
+		gfx->FillRect(cancelRect, { 1.0f,0.41f,0.71f,0.8f });
 	}
 	gfx->EndDraw();
 }
