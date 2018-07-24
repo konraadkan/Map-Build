@@ -1,59 +1,65 @@
-#include "keys.h"
+#pragma once
+#include <windows.h>
+#include <string>
 
-void KeyClass::SetKey(long vKey)
+class KeyClass
 {
-	v_Key = vKey;
-}
-
-void KeyClass::SetDelay(double delay)
-{
-	m_Delay = delay;
-}
-
-bool KeyClass::IsPressed(double currentTime, bool usedelay)
-{
-	if (usedelay)
+private:
+	long v_Key = 0;
+	double m_LastTime = 0;
+	double m_Delay = 0.25;
+public:
+	KeyClass() {}
+	KeyClass(const long k, double delay = 0.25) { SetKey(k); SetDelay(delay); }
+	KeyClass(const std::string s, const long k, double delay = 0.25) { SetKey(k, s); SetDelay(delay); }
+	~KeyClass() {}
+	void SetKey(const long vKey, const std::string s = "Default");
+	void SetDelay(double delay);
+	void ResetTimer();
+	bool IsPressed(double currentTime, bool usedelay = true);
+	bool IsPressed(double currentTime, double delay);
+	long KeyPressedInRange(const long low, const long high);
+	long GetVKey() { return v_Key; }
+	double TimePassed(double currentTime)
 	{
-		if (currentTime - m_LastTime < m_Delay) 
-			return false;
+		return currentTime - m_LastTime;
 	}
-	if (v_Key)
+	void UpdateTime(double currentTime)
 	{
-		if (GetKeyState(v_Key) < 0)
-		{
-			m_LastTime = currentTime;
-			return true;
-		}
+		m_LastTime = currentTime;
 	}
-	return false;
-}
+	std::string Name;
+	std::string GetBoundValue();
+};
 
-bool KeyClass::IsPressed(double currentTime, double delay)
+struct KeyboardKeys
 {
-	if (currentTime - m_LastTime < delay)
-		return false;
-	if (v_Key)
-	{
-		if (GetKeyState(v_Key) < 0)
-		{
-			m_LastTime = currentTime;
-			return true;
-		}
-	}
-	return false;
-}
+	long m_NumberKeys = 23;
+	KeyClass* GetKeyClass(const long pos);
 
-void KeyClass::ResetTimer()
-{
-	m_LastTime = 0;
-}
+	KeyClass m_UpKey;
+	KeyClass m_DownKey;
+	KeyClass m_LeftKey;
+	KeyClass m_RightKey;
+	KeyClass m_ZoomInKey;
+	KeyClass m_ZoomOutKey;
+	KeyClass m_NextTurnKey;
+	KeyClass m_PrevTurnKey;
+	KeyClass m_SelectKey;
+	KeyClass m_EraseKey;
+	KeyClass m_DrawKey;
+	KeyClass m_RulerKey;
+	KeyClass m_IncreaseSize;
+	KeyClass m_DecreaseSize;
+	KeyClass m_InsertKey;
+	KeyClass m_TagKey;
+	KeyClass m_BuffKey;
+	KeyClass m_DebuffKey;
+	KeyClass m_UnconsciousKey;
+	KeyClass m_OnFireKey;
+	KeyClass m_ResetPositionKey;
+	KeyClass m_RotationKey;
+	KeyClass m_SetGeometry;
 
-long KeyClass::KeyPressedInRange(const long low, const long high)
-{
-	for (int i = low; i <= high; i++)
-	{
-		if (GetKeyState(i) < 0) 
-			return i;
-	}
-	return -1;
-}
+	KeyClass m_Range;				//this keepclass works differently from the rest; rather than checking for a specific key, it checks to see if a number or letter was pushed
+};
