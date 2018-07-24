@@ -116,6 +116,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Animation.cpp" />
+    <ClCompile Include="button_mapper.cpp" />
     <ClCompile Include="counter.cpp" />
     <ClCompile Include="custom_geometry.cpp" />
     <ClCompile Include="GameController.cpp" />
@@ -135,6 +136,7 @@
   <ItemGroup>
     <ClInclude Include="Animation.h" />
     <ClInclude Include="AssetList.h" />
+    <ClInclude Include="button_mapper.h" />
     <ClInclude Include="counter.h" />
     <ClInclude Include="custom_geometry.h" />
     <ClInclude Include="defines.h" />
