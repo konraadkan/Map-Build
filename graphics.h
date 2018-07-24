@@ -77,6 +77,7 @@ public:
 	void DrawTextSmall(const wchar_t* text, FRECT targetArea, COLORREF_F color);
 	void DrawTextSmall(const wchar_t* text, FRECT targetArea, COLORREF_F, DWRITE_TEXT_ALIGNMENT alignment);
 	void DrawTextSmall(const wchar_t* text, FRECT targetArea, COLORREF_F, DWRITE_TEXT_ALIGNMENT alignment, DWRITE_PARAGRAPH_ALIGNMENT p_alignment);
+	void DrawTextSmall(const std::string, D2D1_RECT_F targetArea, D2D1_COLOR_F color, DWRITE_TEXT_ALIGNMENT alignment = DWRITE_TEXT_ALIGNMENT::DWRITE_TEXT_ALIGNMENT_CENTER, DWRITE_PARAGRAPH_ALIGNMENT p_alignment = DWRITE_PARAGRAPH_ALIGNMENT::DWRITE_PARAGRAPH_ALIGNMENT_CENTER);
 
 	void DrawVariableText(const wchar_t* text, FRECT targetArea, COLORREF_F color = { 0.0f, 0.0f, 0.0f, 1.0f });
 	void DrawVariableText(const wchar_t text, FRECT targetArea, COLORREF_F color = { 0.0f, 0.0f, 0.0f, 1.0f });
