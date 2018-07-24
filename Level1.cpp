@@ -1,4 +1,4 @@
-﻿#include "Level1.h"
+#include "Level1.h"
 #include "GameController.h"
 
 void Level1::Load()
@@ -53,29 +53,29 @@ void Level1::Load()
 
 void Level1::SetDefaultKeys()
 {
-	m_UpKey.SetKey(VK_UP);
-	m_DownKey.SetKey(VK_DOWN);
-	m_LeftKey.SetKey(VK_LEFT);
-	m_RightKey.SetKey(VK_RIGHT);
-	m_ZoomInKey.SetKey(VK_MULTIPLY);
-	m_ZoomOutKey.SetKey(VK_DIVIDE);
-	m_NextTurnKey.SetKey(VK_SPACE);
-	m_PrevTurnKey.SetKey(VK_BACK);
-	m_SelectKey.SetKey(VK_LBUTTON);
-	m_EraseKey.SetKey(VK_RBUTTON);
-	m_DrawKey.SetKey(VK_LBUTTON);
-	m_TagKey.SetKey(VK_SHIFT);
-	m_BuffKey.SetKey(VK_F1);
-	m_DebuffKey.SetKey(VK_F2);
-	m_UnconsciousKey.SetKey(VK_F3);
-	m_OnFireKey.SetKey(VK_F6);
-	m_RulerKey.SetKey(VK_SHIFT);
-	m_ResetPositionKey.SetKey(VK_HOME);
-	m_RotationKey.SetKey(VK_PRIOR);
-	m_IncreaseSize.SetKey(VK_F4);
-	m_DecreaseSize.SetKey(VK_F5);
-	m_InsertKey.SetKey(VK_MBUTTON);
-	m_SetGeometry.SetKey(VK_RETURN);
+	m_Keyboard.m_UpKey.SetKey(VK_UP, "UpKey");
+	m_Keyboard.m_DownKey.SetKey(VK_DOWN, "DownKey");
+	m_Keyboard.m_LeftKey.SetKey(VK_LEFT, "LeftKey");
+	m_Keyboard.m_RightKey.SetKey(VK_RIGHT, "RightKey");
+	m_Keyboard.m_ZoomInKey.SetKey(VK_MULTIPLY, "ZoomInKey");
+	m_Keyboard.m_ZoomOutKey.SetKey(VK_DIVIDE, "ZoomOutKey");
+	m_Keyboard.m_NextTurnKey.SetKey(VK_SPACE, "NextTurnKey");
+	m_Keyboard.m_PrevTurnKey.SetKey(VK_BACK, "PrevTurnKey");
+	m_Keyboard.m_SelectKey.SetKey(VK_LBUTTON, "SelectKey");
+	m_Keyboard.m_EraseKey.SetKey(VK_RBUTTON, "EraseKey");
+	m_Keyboard.m_DrawKey.SetKey(VK_LBUTTON, "DrawKey");
+	m_Keyboard.m_TagKey.SetKey(VK_SHIFT, "TagKey");
+	m_Keyboard.m_BuffKey.SetKey(VK_F1, "BuffKey");
+	m_Keyboard.m_DebuffKey.SetKey(VK_F2, "DebuffKey");
+	m_Keyboard.m_UnconsciousKey.SetKey(VK_F3, "UnconsciousKey");
+	m_Keyboard.m_OnFireKey.SetKey(VK_F6, "OnFireKey");
+	m_Keyboard.m_RulerKey.SetKey(VK_SHIFT, "RulerKey");
+	m_Keyboard.m_ResetPositionKey.SetKey(VK_HOME, "ResetPositionKey");
+	m_Keyboard.m_RotationKey.SetKey(VK_PRIOR, "RotatationKey");
+	m_Keyboard.m_IncreaseSize.SetKey(VK_F4, "IncreaseSizeKey");
+	m_Keyboard.m_DecreaseSize.SetKey(VK_F5, "DecreaseSizeKey");
+	m_Keyboard.m_InsertKey.SetKey(VK_MBUTTON, "InsertKey");
+	m_Keyboard.m_SetGeometry.SetKey(VK_RETURN, "SetGeometryKey");
 	
 	FILE* file = NULL;
 	if (fopen_s(&file, "keys.ini", "rb"))
@@ -649,108 +649,108 @@ void Level1::SetKey(char* beforeEqual, char* afterEqual)
 	KeyClass* selectedKey = NULL;
 	if (!_stricmp(beforeEqual, "UpKey"))
 	{
-		selectedKey = &m_UpKey;
+		selectedKey = &m_Keyboard.m_UpKey;
 	}
 	else if (!_stricmp(beforeEqual, "DownKey"))
 	{
-		selectedKey = &m_DownKey;
+		selectedKey = &m_Keyboard.m_DownKey;
 	}
 	else if (!_stricmp(beforeEqual, "LeftKey"))
 	{
-		selectedKey = &m_LeftKey;
+		selectedKey = &m_Keyboard.m_LeftKey;
 	}
 	else if (!_stricmp(beforeEqual, "RightKey"))
 	{
-		selectedKey = &m_RightKey;
+		selectedKey = &m_Keyboard.m_RightKey;
 	}
 	else if (!_stricmp(beforeEqual, "ZoomInKey"))
 	{
-		selectedKey = &m_ZoomInKey;
+		selectedKey = &m_Keyboard.m_ZoomInKey;
 	}
 	else if (!_stricmp(beforeEqual, "ZoomOutKey"))
 	{
-		selectedKey = &m_ZoomOutKey;
+		selectedKey = &m_Keyboard.m_ZoomOutKey;
 	}
 	else if (!_stricmp(beforeEqual, "NextTurnKey"))
 	{
-		selectedKey = &m_NextTurnKey;
+		selectedKey = &m_Keyboard.m_NextTurnKey;
 	}
 	else if (!_stricmp(beforeEqual, "PrevTurnKey"))
 	{
-		selectedKey = &m_PrevTurnKey;
+		selectedKey = &m_Keyboard.m_PrevTurnKey;
 	}
 	else if (!_stricmp(beforeEqual, "SelectKey"))
 	{
-		selectedKey = &m_SelectKey;
+		selectedKey = &m_Keyboard.m_SelectKey;
 	}
 	else if (!_stricmp(beforeEqual, "EraseKey"))
 	{
-		selectedKey = &m_EraseKey;
+		selectedKey = &m_Keyboard.m_EraseKey;
 	}
 	else if (!_stricmp(beforeEqual, "DrawKey"))
 	{
-		selectedKey = &m_DrawKey;
+		selectedKey = &m_Keyboard.m_DrawKey;
 	}
 	else if (!_stricmp(beforeEqual, "RulerKey"))
 	{
-		selectedKey = &m_RulerKey;
+		selectedKey = &m_Keyboard.m_RulerKey;
 	}
 	else if (!_stricmp(beforeEqual, "TagKey"))
 	{
-		selectedKey = &m_TagKey;
+		selectedKey = &m_Keyboard.m_TagKey;
 	}
 	else if (!_stricmp(beforeEqual, "BuffKey"))
 	{
-		selectedKey = &m_BuffKey;
+		selectedKey = &m_Keyboard.m_BuffKey;
 	}
 	else if (!_stricmp(beforeEqual, "DebuffKey"))
 	{
-		selectedKey = &m_DebuffKey;
+		selectedKey = &m_Keyboard.m_DebuffKey;
 	}
 	else if (!_stricmp(beforeEqual, "UnconsciousKey"))
 	{
-		selectedKey = &m_UnconsciousKey;
+		selectedKey = &m_Keyboard.m_UnconsciousKey;
 	}
 	else if (!_stricmp(beforeEqual, "ResetPositionKey"))
 	{
-		selectedKey = &m_ResetPositionKey;
+		selectedKey = &m_Keyboard.m_ResetPositionKey;
 	}
 	else if (!_stricmp(beforeEqual, "RotationKey"))
 	{
-		selectedKey = &m_RotationKey;
+		selectedKey = &m_Keyboard.m_RotationKey;
 	}
 	else if (!_stricmp(beforeEqual, "DecreaseSize"))
 	{
-		selectedKey = &m_DecreaseSize;
+		selectedKey = &m_Keyboard.m_DecreaseSize;
 	}
 	else if (!_stricmp(beforeEqual, "IncreaseSize"))
 	{
-		selectedKey = &m_IncreaseSize;
+		selectedKey = &m_Keyboard.m_IncreaseSize;
 	}
 	else if (!_stricmp(beforeEqual, "OnFireKey"))
 	{
-		selectedKey = &m_OnFireKey;
+		selectedKey = &m_Keyboard.m_OnFireKey;
 	}
 	else if (!_stricmp(beforeEqual, "InsertKey"))
 	{
-		selectedKey = &m_InsertKey;
+		selectedKey = &m_Keyboard.m_InsertKey;
 	}
 	else if (!_stricmp(beforeEqual, "SetGeometryKey"))
 	{
-		selectedKey = &m_SetGeometry;
+		selectedKey = &m_Keyboard.m_SetGeometry;
 	}
 
 	if (selectedKey)
 	{
 		if (strlen(afterEqual) == 1)
 		{
-			selectedKey->SetKey(afterEqual[0]);
+			selectedKey->SetKey(toupper(afterEqual[0]), beforeEqual);
 		}
 		else
 		{
 			long key = CharToLong(afterEqual);
 			if(key)
-				selectedKey->SetKey(key);
+				selectedKey->SetKey(key, beforeEqual);
 		}
 	}
 	selectedKey = NULL;
@@ -997,6 +997,13 @@ void Level1::Update(WPARAM wParam, D2D1_POINT_2F p)
 		checked = checked | MF_UNCHECKED;
 		CheckMenuItem(GetMenu(GameController::hWnd), MENU_GRIDONTOP, checked);
 	}
+
+	if (wParam == MENU_EDITBUTTONMAPPING)
+	{
+		//allows for tweaking the button configuration
+		ButtonMapper m_ButtonMapper(m_Keyboard, gfx);
+		Sleep(100);
+	}
 }
 
 float Level1::CalcRulerDistance()
@@ -1016,28 +1023,28 @@ float Level1::CalcRulerDistance()
 
 void Level1::ReactInputsGeometryMode(float timeTotal, float timeDelta, D2D1_POINT_2F p)
 {
-	if (m_ZoomInKey.IsPressed(timeTotal, false)) IncreaseSize();
-	if (m_ZoomOutKey.IsPressed(timeTotal, false)) DecreaseSize();
-	if (m_LeftKey.IsPressed(timeTotal, 0.10)) m_StartPoint.x += m_Size;
-	if (m_RightKey.IsPressed(timeTotal, 0.10)) m_StartPoint.x -= m_Size;
-	if (m_UpKey.IsPressed(timeTotal, 0.10)) m_StartPoint.y += m_Size;
-	if (m_DownKey.IsPressed(timeTotal, 0.10)) m_StartPoint.y -= m_Size;
-	if (m_DecreaseSize.IsPressed(timeTotal, false))
+	if (m_Keyboard.m_ZoomInKey.IsPressed(timeTotal, false)) IncreaseSize();
+	if (m_Keyboard.m_ZoomOutKey.IsPressed(timeTotal, false)) DecreaseSize();
+	if (m_Keyboard.m_LeftKey.IsPressed(timeTotal, 0.10)) m_StartPoint.x += m_Size;
+	if (m_Keyboard.m_RightKey.IsPressed(timeTotal, 0.10)) m_StartPoint.x -= m_Size;
+	if (m_Keyboard.m_UpKey.IsPressed(timeTotal, 0.10)) m_StartPoint.y += m_Size;
+	if (m_Keyboard.m_DownKey.IsPressed(timeTotal, 0.10)) m_StartPoint.y -= m_Size;
+	if (m_Keyboard.m_DecreaseSize.IsPressed(timeTotal, false))
 	{
 		m_Size--;
 		m_RecalcLines = true;
 	}
-	if (m_IncreaseSize.IsPressed(timeTotal, false))
+	if (m_Keyboard.m_IncreaseSize.IsPressed(timeTotal, false))
 	{
 		m_Size++;
 		m_RecalcLines = true;
 	}
-	if (m_ResetPositionKey.IsPressed(timeTotal))
+	if (m_Keyboard.m_ResetPositionKey.IsPressed(timeTotal))
 	{
 		m_RecalcLines = true;
 		m_StartPoint = {};
 	}
-	if (m_EraseKey.IsPressed(timeTotal, false))
+	if (m_Keyboard.m_EraseKey.IsPressed(timeTotal, false))
 	{
 		//remove last point
 		/*
@@ -1114,7 +1121,7 @@ void Level1::ReactInputsGeometryMode(float timeTotal, float timeDelta, D2D1_POIN
 			}
 		}
 	}
-	if (m_DrawKey.IsPressed(timeTotal, false))
+	if (m_Keyboard.m_DrawKey.IsPressed(timeTotal, false))
 	{		
 		if (InRect(m_DrawAreaRect, p))
 		{
@@ -1163,7 +1170,7 @@ void Level1::ReactInputsGeometryMode(float timeTotal, float timeDelta, D2D1_POIN
 			}
 		}
 	}
-	if (m_SetGeometry.IsPressed(timeTotal, false))
+	if (m_Keyboard.m_SetGeometry.IsPressed(timeTotal, false))
 	{
 		
 		if (!m_CurrentGeometry.empty())
@@ -1213,7 +1220,7 @@ void Level1::ReactInputsGeometryMode(float timeTotal, float timeDelta, D2D1_POIN
 		}
 	
 	}
-	if (m_SelectKey.IsPressed(timeTotal, 0.2))
+	if (m_Keyboard.m_SelectKey.IsPressed(timeTotal, 0.2))
 	{
 		if (InRect(m_MenuAreaRect, p))
 		{
@@ -1526,18 +1533,18 @@ void Level1::ReactInputsGeometryMode(float timeTotal, float timeDelta, D2D1_POIN
 
 void Level1::ReactInputs(float timeTotal, float timeDelta, D2D1_POINT_2F p)
 {
-	if (m_DecreaseSize.IsPressed(timeTotal, false))
+	if (m_Keyboard.m_DecreaseSize.IsPressed(timeTotal, false))
 	{
 		m_Size--;
 		m_RecalcLines = true;
 	}
-	if (m_IncreaseSize.IsPressed(timeTotal, false))
+	if (m_Keyboard.m_IncreaseSize.IsPressed(timeTotal, false))
 	{
 		m_Size++;
 		m_RecalcLines = true;
 	}
 
-	if (m_NextTurnKey.IsPressed(timeTotal, 0.2f))
+	if (m_Keyboard.m_NextTurnKey.IsPressed(timeTotal, 0.2f))
 	{
 		m_InitArea.NextTurn();
 		if (m_ItemMenuArea.m_ShowCounter)
@@ -1548,7 +1555,7 @@ void Level1::ReactInputs(float timeTotal, float timeDelta, D2D1_POINT_2F p)
 			}
 		}
 	}
-	if (m_PrevTurnKey.IsPressed(timeTotal, 0.2f))
+	if (m_Keyboard.m_PrevTurnKey.IsPressed(timeTotal, 0.2f))
 	{
 		if (m_ItemMenuArea.m_ShowCounter)
 		{
@@ -1559,13 +1566,13 @@ void Level1::ReactInputs(float timeTotal, float timeDelta, D2D1_POINT_2F p)
 		}
 		m_InitArea.PreviousTurn();
 	}
-	if (m_ResetPositionKey.IsPressed(timeTotal))
+	if (m_Keyboard.m_ResetPositionKey.IsPressed(timeTotal))
 	{
 		m_RecalcLines = true;
 		m_StartPoint = {};
 	}
 
-	if (m_RulerKey.IsPressed(timeTotal, false))
+	if (m_Keyboard.m_RulerKey.IsPressed(timeTotal, false))
 	{
 		if (InRect(m_DrawAreaRect, p))
 		{
@@ -1599,7 +1606,7 @@ void Level1::ReactInputs(float timeTotal, float timeDelta, D2D1_POINT_2F p)
 	else
 		m_RulerEndPoint = p;
 
-	if (m_EraseKey.IsPressed(timeTotal, 0.2f))
+	if (m_Keyboard.m_EraseKey.IsPressed(timeTotal, 0.2f))
 	{
 		if (InRect(m_MenuAreaRect, p))
 		{
@@ -1632,18 +1639,18 @@ void Level1::ReactInputs(float timeTotal, float timeDelta, D2D1_POINT_2F p)
 		}
 	}
 
-	if (m_TagKey.IsPressed(timeTotal, false))
+	if (m_Keyboard.m_TagKey.IsPressed(timeTotal, false))
 	{
 		if (InRect(m_DrawAreaRect, p))
 		{
-			long key = m_Range.KeyPressedInRange('0', '9');
+			long key = m_Keyboard.m_Range.KeyPressedInRange('0', '9');
 			if (key == -1)
-				key = m_Range.KeyPressedInRange('A', 'Z');
+				key = m_Keyboard.m_Range.KeyPressedInRange('A', 'Z');
 			if (key != -1)
 			{
-				if (m_Range.TimePassed(timeTotal) > 0.33f)
+				if (m_Keyboard.m_Range.TimePassed(timeTotal) > 0.33f)
 				{
-					m_Range.UpdateTime(timeTotal);
+					m_Keyboard.m_Range.UpdateTime(timeTotal);
 					for (int i = 0; i < (int)m_Rooms[m_CurrentRoom].m_Layer[m_CurrentLayer].m_MapData.size(); i++)
 					{
 						MapData* tmap = &m_Rooms[m_CurrentRoom].m_Layer[m_CurrentLayer].m_MapData[i];
@@ -1671,7 +1678,7 @@ void Level1::ReactInputs(float timeTotal, float timeDelta, D2D1_POINT_2F p)
 		}
 	}
 
-	if (m_BuffKey.IsPressed(timeTotal, 0.2f))
+	if (m_Keyboard.m_BuffKey.IsPressed(timeTotal, 0.2f))
 	{
 		if (InRect(m_DrawAreaRect, p))
 		{
@@ -1707,7 +1714,7 @@ void Level1::ReactInputs(float timeTotal, float timeDelta, D2D1_POINT_2F p)
 		}
 	}
 
-	if (m_DebuffKey.IsPressed(timeTotal, 0.2f))
+	if (m_Keyboard.m_DebuffKey.IsPressed(timeTotal, 0.2f))
 	{
 		
 		if (InRect(m_DrawAreaRect, p))
@@ -1744,7 +1751,7 @@ void Level1::ReactInputs(float timeTotal, float timeDelta, D2D1_POINT_2F p)
 		}
 	}
 
-	if (m_UnconsciousKey.IsPressed(timeTotal, 0.2f))
+	if (m_Keyboard.m_UnconsciousKey.IsPressed(timeTotal, 0.2f))
 	{
 		if (InRect(m_DrawAreaRect, p))
 		{
@@ -1780,7 +1787,7 @@ void Level1::ReactInputs(float timeTotal, float timeDelta, D2D1_POINT_2F p)
 		}
 	}
 
-	if (m_OnFireKey.IsPressed(timeTotal, 0.2f))
+	if (m_Keyboard.m_OnFireKey.IsPressed(timeTotal, 0.2f))
 	{
 		if (InRect(m_DrawAreaRect, p))
 		{
@@ -1816,7 +1823,7 @@ void Level1::ReactInputs(float timeTotal, float timeDelta, D2D1_POINT_2F p)
 		}
 	}
 
-	if (m_EraseKey.IsPressed(timeTotal, false))
+	if (m_Keyboard.m_EraseKey.IsPressed(timeTotal, false))
 	{
 		if (InRect(m_DrawAreaRect, p))
 		{
@@ -1992,7 +1999,7 @@ void Level1::ReactInputs(float timeTotal, float timeDelta, D2D1_POINT_2F p)
 		}
 	}
 
-	if (m_InsertKey.IsPressed(timeTotal, 0.2f))
+	if (m_Keyboard.m_InsertKey.IsPressed(timeTotal, 0.2f))
 	{
 		if (InRect(m_MenuAreaRect, p))
 		{
@@ -2006,7 +2013,7 @@ void Level1::ReactInputs(float timeTotal, float timeDelta, D2D1_POINT_2F p)
 		}
 	}
 
-	if (m_SelectKey.IsPressed(timeTotal, 0.2))
+	if (m_Keyboard.m_SelectKey.IsPressed(timeTotal, 0.2))
 	{
 		if (InRect(m_MenuAreaRect, p))
 		{
@@ -2549,7 +2556,7 @@ void Level1::ReactInputs(float timeTotal, float timeDelta, D2D1_POINT_2F p)
 		}
 	}
 
-	if (m_DrawKey.IsPressed(timeTotal, 0.10f))
+	if (m_Keyboard.m_DrawKey.IsPressed(timeTotal, 0.10f))
 	{
 		if (InRect(m_DrawAreaRect, p))
 		{
@@ -2660,7 +2667,7 @@ void Level1::ReactInputs(float timeTotal, float timeDelta, D2D1_POINT_2F p)
 		}
 	}
 
-	if (m_DrawKey.IsPressed(timeTotal, false))
+	if (m_Keyboard.m_DrawKey.IsPressed(timeTotal, false))
 	{
 		if (InRect(m_DrawAreaRect, p))
 		{
@@ -2982,7 +2989,7 @@ void Level1::ReactInputs(float timeTotal, float timeDelta, D2D1_POINT_2F p)
 		}
 	}
 
-	if (m_RotationKey.IsPressed(timeTotal, 0.10f))
+	if (m_Keyboard.m_RotationKey.IsPressed(timeTotal, 0.10f))
 	{
 		if (m_UseOld)
 		{
@@ -3015,12 +3022,12 @@ void Level1::ReactInputs(float timeTotal, float timeDelta, D2D1_POINT_2F p)
 		}
 	}
 
-	if (m_ZoomInKey.IsPressed(timeTotal, false)) IncreaseSize();
-	if (m_ZoomOutKey.IsPressed(timeTotal, false)) DecreaseSize();
-	if (m_LeftKey.IsPressed(timeTotal, 0.10)) m_StartPoint.x += m_Size;
-	if (m_RightKey.IsPressed(timeTotal, 0.10)) m_StartPoint.x -= m_Size;
-	if (m_UpKey.IsPressed(timeTotal, 0.10)) m_StartPoint.y += m_Size;
-	if (m_DownKey.IsPressed(timeTotal, 0.10)) m_StartPoint.y -= m_Size;
+	if (m_Keyboard.m_ZoomInKey.IsPressed(timeTotal, false)) IncreaseSize();
+	if (m_Keyboard.m_ZoomOutKey.IsPressed(timeTotal, false)) DecreaseSize();
+	if (m_Keyboard.m_LeftKey.IsPressed(timeTotal, 0.10)) m_StartPoint.x += m_Size;
+	if (m_Keyboard.m_RightKey.IsPressed(timeTotal, 0.10)) m_StartPoint.x -= m_Size;
+	if (m_Keyboard.m_UpKey.IsPressed(timeTotal, 0.10)) m_StartPoint.y += m_Size;
+	if (m_Keyboard.m_DownKey.IsPressed(timeTotal, 0.10)) m_StartPoint.y -= m_Size;
 }
 
 void Level1::Update(float timeTotal, float timeDelta, D2D1_POINT_2F p)
@@ -4215,8 +4222,9 @@ void Level1::BuildMenu()
 	AppendMenu(subMenu, MF_STRING, MENU_TOGGLECOLO, "Toggle Item Color");
 	AppendMenu(subMenu, MF_STRING, MENU_TOGGLEINIT, "Toggle Initiative");
 	AppendMenu(subMenu, MF_STRING | MF_CHECKED, MENU_LOCKTOGRID, "Lock To Grid");
-	AppendMenu(subMenu, MF_STRING, MENU_GRIDONTOP, "Toggle Grid On Top");
-	AppendMenu(subMenu, MF_STRING, MENU_KEEPASPECT, "Toggle Keep Aspect");
+	//AppendMenu(subMenu, MF_STRING, MENU_GRIDONTOP, "Toggle Grid On Top");
+	//AppendMenu(subMenu, MF_STRING, MENU_KEEPASPECT, "Toggle Keep Aspect");
+	AppendMenu(subMenu, MF_STRING, MENU_EDITBUTTONMAPPING, "Configure Controls");
 	AppendMenu(subMenu, MF_STRING, MENU_GEOMETRY, "Edit Geometry");					//this is for testing purposes only
 	AppendMenu(m_Menu, MF_POPUP | MF_STRING, (UINT)subMenu, "Advanced");
 
