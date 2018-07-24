@@ -13,6 +13,7 @@
 #include "counter.h"
 #include "custom_geometry.h"
 #include "Room.h"
+#include "button_mapper.h"
 
 class Level1 : public Level
 {
@@ -160,33 +161,7 @@ public:
 	void SetKeys(char* buffer);
 	void SetKey(char* beforeEqual, char* afterEqual);
 	long CharToLong(char* vk_key);
-	KeyClass m_UpKey;
-	KeyClass m_DownKey;
-	KeyClass m_LeftKey;
-	KeyClass m_RightKey;
-	KeyClass m_ZoomInKey;
-	KeyClass m_ZoomOutKey;
-	KeyClass m_NextTurnKey;
-	KeyClass m_PrevTurnKey;
-	KeyClass m_SelectKey;
-	KeyClass m_EraseKey;
-	KeyClass m_DrawKey;
-	KeyClass m_RulerKey;
-	KeyClass m_IncreaseSize;
-	KeyClass m_DecreaseSize;
-	KeyClass m_InsertKey;
-
-	KeyClass m_TagKey;
-	KeyClass m_Range;
-	KeyClass m_BuffKey;
-	KeyClass m_DebuffKey;
-	KeyClass m_UnconsciousKey;
-	KeyClass m_OnFireKey;
-
-	KeyClass m_ResetPositionKey;
-	KeyClass m_RotationKey;
-
-	KeyClass m_SetGeometry;
+	KeyboardKeys m_Keyboard;
 public:
 	void Open(std::wstring filePath);
 	void Open(const wchar_t* filePath) override;
